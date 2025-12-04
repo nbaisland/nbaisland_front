@@ -1,0 +1,8 @@
+.transaction-card.headers {
+  font-weight: bold;
+  background-color: #7c7c7c;
+  color: #fff;
+  pointer-events: none;
+  padding: 2px 8px;
+  font-size: 0.85rem;
+}

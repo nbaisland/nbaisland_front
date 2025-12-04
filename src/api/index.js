@@ -28,6 +28,17 @@ export async function getPlayerById(id) {
     }
 }
 
+export async function getUserByUsername(username) {
+    try {
+        const res = await fetch(`http://localhost:8080/users/username/${username}`)
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+    } catch (error) {
+        console.error("Failed to fetch users:", error);
+        throw error;
+    }
+}
+
 export async function getUsers() {
     try {
         const res = await fetch('http://localhost:8080/users')
@@ -40,13 +51,46 @@ export async function getUsers() {
 }
 
 
-export async function getHoldings() {
+export async function getTransactions() {
     try {
-        const res = await fetch('http://localhost:8080/holdings')
+        const res = await fetch('http://localhost:8080/transactions')
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         return res.json();
     } catch (error) {
-        console.error("Failed to fetch Holdings:", error);
+        console.error("Failed to fetch transactions:", error);
+        throw error;
+    }
+}
+
+export async function getPositions() {
+    try {
+        const res = await fetch('http://localhost:8080/positions')
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+    } catch (error) {
+        console.error("Failed to fetch positions:", error);
+        throw error;
+    }
+}
+
+export async function getUserPositions(id) {
+    try {
+        const res = await fetch(`http://localhost:8080/users/${id}/positions`)
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+    } catch (error) {
+        console.error(`Failed to fetch Player specified by id (${id})`, error);
+        throw error;
+    }
+}
+
+export async function getUserTransactions(id) {
+    try {
+        const res = await fetch(`http://localhost:8080/users/${id}/transactions`)
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+    } catch (error) {
+        console.error(`Failed to fetch Player specified by id (${id})`, error);
         throw error;
     }
 }
