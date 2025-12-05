@@ -1,4 +1,5 @@
 import './TradeCard.css';
+import { Link } from 'react-router-dom'
 
 function TradeCard({ transaction, player, user }) {
   if (!transaction || !player || !user) {
@@ -17,8 +18,12 @@ function TradeCard({ transaction, player, user }) {
       </p>
       <p className='price'>{transaction.price}</p>
       <p className={`type ${transaction.type.toLowerCase()}`}>{transaction.type}</p>
-      <p className="player">{player.name}</p>
-      <p className="user">{user?.name ?? 'Unknown user'}</p>
+       <Link to={`/players/${player.slug}`} className="player-link">
+          <p className="player">{player.name}</p>
+        </Link>
+      <Link to={`/user/${user.username}`} className="user-link">
+          <p className="user">{user.name}</p>
+      </Link>
     </div>
   );
 }

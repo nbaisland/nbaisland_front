@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {getUserByUsername, getUserPositions, getUserTransactions, getPlayers} from '../api';
 import TradeCard from "../components/TradeCard";
+import PositionCard from "../components/positions/PositionCard";
 
 function UserPage() {
   const { username } = useParams();
@@ -51,7 +52,15 @@ function UserPage() {
       <h2>Currency: {user.currency}</h2>
 
       <h2>Positions</h2>
-      <pre>{JSON.stringify(positions, null, 2)}</pre>
+      <pre>
+        {positions.map( position => (
+          <PositionCard
+            position={position}
+            player={players[position.player_id]}
+          />
+        ))}
+      </pre>
+          
 
       <h2>Transactions</h2>
       <pre>
@@ -62,7 +71,7 @@ function UserPage() {
             player={players[transaction.player_id]}
             user={user}
           />
-    ))}
+        ))}
       </pre>
     </div>
   );

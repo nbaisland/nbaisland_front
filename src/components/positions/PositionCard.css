@@ -1,0 +1,42 @@
+.position-card {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+
+  background: var(--card-bg, #1a1a1a);
+  border: 1px solid var(--border-color, #333);
+  border-radius: 8px;
+
+  padding: 6px 10px;
+  margin: 4px 0;
+
+  font-size: 0.85rem;
+  color: white;
+
+  width: 260px; /* small square-ish footprint */
+}
+
+.pos-player {
+  font-weight: 600;
+}
+
+.pos-quantity {
+  font-weight: 700;
+  text-align: center;
+  color: var(--highlight, #ccc);
+}
+
+.pos-user {
+  text-align: right;
+  opacity: 0.8;
+  font-size: 0.75rem;
+}
+
+.player-link, .user-link {
+  text-decoration: none;
+  color: inherit;
+}
+.player-link:hover, .user-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

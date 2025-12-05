@@ -28,6 +28,39 @@ export async function getPlayerById(id) {
     }
 }
 
+export async function getPlayerByName(slug) {
+    try {
+        const res = await fetch(`http://localhost:8080/players/name/${slug}`)
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+    } catch (error) {
+        console.error(`Failed to fetch Player specified by name (${slug})`, error);
+        throw error;
+    }
+}
+
+export async function getPlayerPositions(id) {
+    try {
+        const res = await fetch(`http://localhost:8080/players/${id}/positions`)
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+    } catch (error) {
+        console.error(`Failed to fetch Player specified by id (${id})`, error);
+        throw error;
+    }
+}
+
+export async function getPlayerTransactions(id) {
+    try {
+        const res = await fetch(`http://localhost:8080/players/${id}/transactions`)
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+    } catch (error) {
+        console.error(`Failed to fetch Player specified by id (${id})`, error);
+        throw error;
+    }
+}
+
 export async function getUserByUsername(username) {
     try {
         const res = await fetch(`http://localhost:8080/users/username/${username}`)

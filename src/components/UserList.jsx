@@ -25,11 +25,11 @@ function TopUsersList({ topN = 10 }) {
   return (
     <div>
     <h2>Top {topN} Users</h2>
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
-      {topUsers.map(user => (
-        <UserCard key={user.id} user={user} />
-      ))}
-    </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+        {topUsers.map(user => (
+          <UserCard key={user.id} user={user} />
+        ))}
+      </div>
     </div>
   );
 }
