@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import {getPlayerByName, getPlayerPositions, getPlayerTransactions, getUsers} from '../api';
 import TradeCard from "../components/TradeCard";
 import PositionCard from "../components/positions/PositionCard";
+import IslandCanvas from "../components/Island/IslandCanvas";
 
 function UserPage() {
   const { playerSlug } = useParams();
@@ -50,7 +51,7 @@ function UserPage() {
     <div>
       <h1>{player.name}</h1>
       <h2>Current Value: {player.value}</h2>
-
+      <IslandCanvas seed={playerSlug}/>
       <h2>Positions</h2>
         {positions.map( position => (
           <PositionCard

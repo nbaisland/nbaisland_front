@@ -1,6 +1,6 @@
 import RecentActivity from '../components/RecentActivity';
 import TopPlayersList from '../components/TopPlayersList';
-import TopUsersList from '../components/UserList';
+import TopUsersList from '../components/User/UserList';
 
 function Home() {
   return (

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getPlayers } from '../api';
-import PlayerCard from './PlayerCard';
+import PlayerCard from './Player/PlayerCard';
 
 function TopPlayersList({ topN = 10 }) {
   const [players, setPlayers] = useState([]);

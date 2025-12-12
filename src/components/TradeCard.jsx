@@ -18,7 +18,7 @@ function TradeCard({ transaction, player, user }) {
       </p>
       <p className='price'>{transaction.price}</p>
       <p className={`type ${transaction.type.toLowerCase()}`}>{transaction.type}</p>
-       <Link to={`/players/${player.slug}`} className="player-link">
+       <Link to={`/player/${player.slug}`} className="player-link">
           <p className="player">{player.name}</p>
         </Link>
       <Link to={`/user/${user.username}`} className="user-link">

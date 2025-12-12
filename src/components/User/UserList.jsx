@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getUsers } from '../api';
+import { getUsers } from '../../api';
 import UserCard from './UserCard';
 
 function TopUsersList({ topN = 10 }) {
