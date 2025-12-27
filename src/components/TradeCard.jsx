@@ -1,4 +1,3 @@
-import './TradeCard.css';
 import { Link } from 'react-router-dom'
 
 function TradeCard({ transaction, player, user }) {
