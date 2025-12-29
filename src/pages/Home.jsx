@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { getUserPositions, getUserTransactions, getPlayers, getUsers } from '../api';
-import PlayerCard from '../components/Player/PlayerCard';
+import PlayerCard from '../components/transaction/PlayerCard';
 import PositionCard from '../components/positions/PositionCard';
 
 function QuickStatCard({ icon: Icon, label, value, change, link, color = "blue" }) {
