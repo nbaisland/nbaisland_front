@@ -2,6 +2,11 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext(null);
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const API_AUTH_BASE = `${API_BASE_URL}/api/auth`;
+const AUTH_BASE = `${API_BASE_URL}/auth`;
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -17,18 +22,19 @@ export function AuthProvider({ children }) {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/auth/me', {
+      const response = await fetch(`${API_AUTH_BASE}/me`, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
-      if (response.ok) {
-        const userData = await response.json();
-        setUser(userData);
-      } else {
+      if (!response.ok) {
         logout();
+        return;
       }
+
+      const userData = await response.json();
+      setUser(userData);
     } catch (error) {
       console.error('Failed to fetch user:', error);
       logout();
@@ -38,10 +44,10 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (username, password) => {
-    const response = await fetch('http://localhost:8080/auth/login', {
+    const response = await fetch(`${AUTH_BASE}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ username, password }),
     });
 
     if (!response.ok) {
@@ -56,10 +62,10 @@ export function AuthProvider({ children }) {
   };
 
   const register = async (username, password, email) => {
-    const response = await fetch('http://localhost:8080/auth/register', {
+    const response = await fetch(`${AUTH_BASE}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password, email })
+      body: JSON.stringify({ username, password, email }),
     });
 
     if (!response.ok) {
@@ -81,7 +87,17 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, register, fetchCurrentUser, logout, loading }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        token,
+        login,
+        register,
+        fetchCurrentUser,
+        logout,
+        loading,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
