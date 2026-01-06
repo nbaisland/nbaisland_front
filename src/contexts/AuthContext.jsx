@@ -73,7 +73,7 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const register = async (username, password, email) => {
+  const register = async (username, email, password) => {
     try {
       const response = await fetch(`${AUTH_BASE}/register`, {
         method: 'POST',
@@ -97,6 +97,23 @@ export function AuthProvider({ children }) {
     }
   };
 
+   const refreshUser = async () => {
+    if (token) {
+      try {
+        const response = await fetch('http://localhost:8080/api/auth/me', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+        }
+      } catch (error) {
+        console.error('Failed to refresh user:', error);
+      }
+    }
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -104,7 +121,9 @@ export function AuthProvider({ children }) {
         token,
         login,
         register,
+        fetchCurrentUser,
         logout,
+        refreshUser,
         loading,
       }}
     >

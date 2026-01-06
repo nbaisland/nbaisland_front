@@ -301,7 +301,7 @@ function PlayerPage() {
               className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center gap-2 shadow-lg"
             >
               <ShoppingCart size={20} />
-              Trade Now
+              Buy Now
             </Link>
           </div>
         </div>

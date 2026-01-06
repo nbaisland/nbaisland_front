@@ -112,7 +112,7 @@ function HoldingCard({ position, player, onSell }) {
 }
 
 export default function PlayerPurchasePage() {
-  const { user, fetchCurrentUser } = useAuth();
+  const { user, fetchCurrentUser, refreshUser } = useAuth();
   const [activeTab, setActiveTab] = useState('buy'); // 'buy' or 'sell'
   const [searchQuery, setSearchQuery] = useState('');
   const [players, setPlayers] = useState([]);
@@ -188,7 +188,7 @@ export default function PlayerPurchasePage() {
       const positionsData = await getUserPositions(user.id);
       setUserPositions(positionsData);
       await fetchCurrentUser();
-
+      await refreshUser();
       setTimeout(() => setNotification(null), 3000);
     } catch (error) {
       console.error("Purchase failed:", error);
@@ -209,7 +209,7 @@ export default function PlayerPurchasePage() {
       const positionsData = await getUserPositions(user.id);
       setUserPositions(positionsData);
       await fetchCurrentUser();
-
+      await refreshUser();
       setTimeout(() => setNotification(null), 3000);
     } catch (error) {
       console.error("Sale failed:", error);

@@ -19,7 +19,7 @@ export default function RegisterPage() {
 
     try {
       await register(username, email, password);
-      navigate('/'); // or "/welcome" if you have a welcome page
+      navigate('/');
     } catch (err) {
       setError('Registration failed. Please check your details.');
     } finally {

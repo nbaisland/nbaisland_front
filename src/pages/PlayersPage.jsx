@@ -26,12 +26,10 @@ export default function PlayersPage() {
     loadPlayers();
   }, []);
 
-  // Reset display limit when search changes
   useEffect(() => {
     setDisplayLimit(20);
   }, [search, teamFilter]);
 
-  // Get unique teams for filter
   const teams = useMemo(() => {
     const uniqueTeams = [...new Set(players.map(p => p.team).filter(Boolean))];
     return uniqueTeams.sort();
@@ -40,7 +38,6 @@ export default function PlayersPage() {
   const filteredPlayers = useMemo(() => {
     let res = players;
     
-    // Search filter
     if (search) {
       const s = search.toLowerCase();
       res = res.filter(p =>
@@ -49,12 +46,10 @@ export default function PlayersPage() {
       );
     }
 
-    // Team filter
     if (teamFilter !== "all") {
       res = res.filter(p => p.team === teamFilter);
     }
 
-    // Sort
     res = [...res].sort((a, b) => {
       const dir = sortDir === "desc" ? -1 : 1;
       const aVal = a[sortKey] ?? "";
@@ -67,7 +62,6 @@ export default function PlayersPage() {
     return res;
   }, [players, search, sortKey, sortDir, teamFilter]);
 
-  // Stats for the overview cards
   const stats = useMemo(() => {
     if (players.length === 0) return { total: 0, avgValue: 0, avgCapacity: 0, topPerformer: null };
     
