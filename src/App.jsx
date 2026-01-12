@@ -7,6 +7,7 @@ import UserPage from './pages/UserPage';
 import UsersPage from './pages/UsersPage';
 import PlayerPage from './pages/PlayerPage';
 import PlayersPage from './pages/PlayersPage';
+import PortfolioPage from './pages/PortfolioPage';
 import TransactionPage from './pages/TransactionPage';
 import NavBar from './components/NavBar/NavBar';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -28,6 +29,7 @@ function App() {
                   <Route path="/" element={<Home/>} />
                   <Route path="/user/:username" element={<UserPage/>}/>
                   <Route path="/player/:playerSlug" element={<PlayerPage/>}/>
+                  <Route path="/portfolio" element={<PortfolioPage/>}/>
                   <Route path="/players" element={<PlayersPage/>}/>
                   <Route path="/users" element={<UsersPage/>}/>
                   <Route path="/marketplace" element={<TransactionPage/>}/>

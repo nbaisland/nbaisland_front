@@ -59,16 +59,20 @@ export async function getPlayerByName(slug) {
 }
 
 export async function getPlayerPositions(id) {
-    try {
-        const res = await fetch(`${API_BASE}/players/${id}/positions`, {
-        headers: getAuthHeaders()
-    })
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        return res.json();
+  try {
+    const res = await fetch(`${API_BASE}/players/${id}/positions`, {
+      headers: getAuthHeaders()
+    });
+
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+    const data = await res.json();
+
+    return Array.isArray(data) ? data : [];
     } catch (error) {
-        console.error(`Failed to fetch Player specified by id (${id})`, error);
-        throw error;
-    }
+      console.error(`Failed to fetch Player specified by id (${id})`, error);
+      return [];
+  }
 }
 
 export async function getPlayerTransactions(id) {
