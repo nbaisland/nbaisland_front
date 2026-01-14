@@ -103,7 +103,7 @@ function NavBar() {
                       className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 transition-colors w-full text-left"
                       onClick={() => {
                         setProfileMenuOpen(false);
-                        // #TODO: Add logout logic
+                        logout();
                       }}
                     >
                       <LogOut size={18} className="text-red-600" />

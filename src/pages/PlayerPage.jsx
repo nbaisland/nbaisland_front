@@ -16,6 +16,7 @@ import {
 import TradeCard from "../components/TradeCard";
 import PositionCard from "../components/positions/PositionCard";
 import IslandCanvas from "../components/Island/IslandCanvas";
+import PlayerPriceChart from "../components/charts/PlayerPriceChart";
 
 function StatBox({ icon: Icon, label, value, subValue, color = "blue" }) {
   const colorClasses = {
@@ -297,7 +298,7 @@ function PlayerPage() {
               </div>
             </div>
             <Link 
-              to="/marketplace"
+              to={`/marketplace?player=${player.slug}`}
               className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center gap-2 shadow-lg"
             >
               <ShoppingCart size={20} />
@@ -338,13 +339,22 @@ function PlayerPage() {
           />
         </div>
 
-        {/* Island Visualization */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6 border border-gray-200">
-          <h3 className="text-xl font-bold mb-4">Island Visualization</h3>
-          <div className="bg-gray-100 rounded-lg overflow-hidden">
-            <IslandCanvas seed={playerSlug} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-white rounded-lg shadow-lg p-6 mb-6 border border-gray-200">
+            <h3 className="text-xl font-bold mb-4">Island Visualization</h3>
+            <div className="bg-gray-100 rounded-lg overflow-hidden">
+              <IslandCanvas seed={playerSlug} />
+            </div>
           </div>
+          <div className="mb-6">
+          <PlayerPriceChart 
+            playerId={player.id} 
+            playerName={player.name}
+          />
         </div>
+        </div>
+        {/* Island Visualization */}
+        
 
         {/* Additional Stats */}
         {(player.points || player.rebounds || player.assists) && (
@@ -379,7 +389,6 @@ function PlayerPage() {
           </div>
         )}
 
-        {/* Two Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Shareholders positions={positions} users={users} />
           <MarketActivity transactions={transactions} users={users} />

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { useSearchParams } from 'react-router-dom';
 import { Search, TrendingUp, ShoppingCart, TrendingDown, DollarSign } from 'lucide-react';
 import PurchaseSummary from '../components/transaction/PurchaseSummary';
 import PlayerCard from '../components/transaction/PlayerCard';
@@ -116,6 +117,7 @@ export default function PlayerPurchasePage() {
   const [activeTab, setActiveTab] = useState('buy'); // 'buy' or 'sell'
   const [searchQuery, setSearchQuery] = useState('');
   const [players, setPlayers] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams(); 
   const [userPositions, setUserPositions] = useState([]);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -141,12 +143,25 @@ export default function PlayerPurchasePage() {
         }
         setPlayers(playerData);
         setUserPositions(positionsData);
+
+        const playerSlugFromUrl = searchParams.get('player');
+        if (playerSlugFromUrl) {
+          const playerToSelect = playerData.find(
+            p => p.slug === playerSlugFromUrl
+          );
+          if (playerToSelect) {
+            setSelectedPlayer(playerToSelect);
+            setActiveTab('buy');
+            searchParams.delete('player');
+            setSearchParams(searchParams, { replace: true });
+          }
+        }
       } catch (error) {
         console.error("Failed to load data:", error);
       }
     }
     load();
-  }, [user]);
+  }, [user, searchParams, setSearchParams]);
 
   const playerMap = {};
   players.forEach(p => { playerMap[p.id] = p; });
@@ -248,7 +263,9 @@ export default function PlayerPurchasePage() {
         {/* Tabs */}
         <div className="flex gap-2 mb-6">
           <button
-            onClick={() => setActiveTab('buy')}
+            onClick={() => {setActiveTab('buy');
+              setSelectedPlayer(null);}
+            }
             className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-colors ${
               activeTab === 'buy'
                 ? 'bg-blue-600 text-white'
@@ -259,7 +276,10 @@ export default function PlayerPurchasePage() {
             Buy Players
           </button>
           <button
-            onClick={() => setActiveTab('sell')}
+            onClick={() => {
+              setActiveTab('sell')
+              setSelectedPlayer(null);
+            }}
             className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-colors ${
               activeTab === 'sell'
                 ? 'bg-red-600 text-white'
@@ -315,6 +335,7 @@ export default function PlayerPurchasePage() {
                       position={position}
                       player={playerMap[position.player_id]}
                       onSell={handleSellClick}
+                      onSelect={setSelectedPlayer}
                     />
                   ))}
                 </div>

@@ -58,6 +58,19 @@ export async function getPlayerByName(slug) {
     }
 }
 
+export async function getPlayerPriceHistory(playerId, timeRange = '30d') {
+  const response = await fetch(
+    `${API_BASE}/players/${playerId}/price-history?range=${timeRange}`,
+    {
+      headers: getAuthHeaders()
+    }
+  );
+  if (!response.ok) {
+    throw new Error('Failed to fetch price history');
+  }
+  return response.json();
+}
+
 export async function getPlayerPositions(id) {
   try {
     const res = await fetch(`${API_BASE}/players/${id}/positions`, {
