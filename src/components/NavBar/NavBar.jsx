@@ -62,7 +62,9 @@ function NavBar() {
           <div className="hidden md:flex items-center gap-4">
             <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-lg border border-green-200">
               <div className="w-2 h-2 rounded-full bg-green-500"></div>
-              <span className="font-semibold text-green-700">$10,000</span>
+              <span className="font-semibold text-green-700">
+                ${user.currency?.toFixed(2) || '0.00'}
+              </span>
             </div>
 
             <div className="relative">
@@ -133,7 +135,9 @@ function NavBar() {
               </div>
               <div>
                 <p className="font-semibold text-gray-800">{user.username}</p>
-                <p className="text-sm text-green-600 font-semibold">$10,000</p>
+                <p className="text-sm text-green-600 font-semibold">
+                  ${user.currency?.toFixed(2) || '0.00'}
+                </p>
               </div>
             </div>
 
@@ -174,7 +178,6 @@ function NavBar() {
               className="flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors w-full"
               onClick={() => {
                 setMobileMenuOpen(false);
-                // Add logout logic
               }}
             >
               <LogOut size={20} />
